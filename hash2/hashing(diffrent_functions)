@@ -1,0 +1,29 @@
+class HashTable:
+    def __init__(self, size):
+        self.size = size
+        self.table = [None] * size
+
+    # Division Method
+    def hash_function_division(self, key):
+        return key % self.size
+
+    # Mid Square Method
+    def hash_function_mid_square(self, key):
+        key_squared = key * key
+        key_squared_str = str(key_squared)
+        hash_value = int(key_squared_str[len(key_squared_str)//2 : len(key_squared_str)//2 + 3])  # Taking 3 digits from the middle
+        return hash_value % self.size
+
+    # Folding Method
+    def hash_function_folding(self, key):
+        key_str = str(key)
+        hash_value = 0
+        for i in range(0, len(key_str), 3):  # Grouping key into 3-digit chunks
+            chunk = key_str[i:i+3]
+            hash_value += int(chunk)
+        return hash_value % self.size
+
+    # Multiplication Method
+    def hash_function_multiplication(self, key):
+        A = 0.618033988749895  # Constant value for multiplication method
+        return int(self.size * ((key * A) % 1))
